@@ -8,12 +8,12 @@ headers: {
 }
 })*/
 
-const STRIVE_SCHOOL_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDI3MTk3ODgsImV4cCI6MTcwMzkyOTM4OH0.ZWtYNSOpd0TEkA8gz_dz_mub0Q2kY41puVZ3HYvvx6A";
+const STRIVE_SCHOOL_API_KEY = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDI3MTk3ODgsImV4cCI6MTcwMzkyOTM4OH0.ZWtYNSOpd0TEkA8gz_dz_mub0Q2kY41puVZ3HYvvx6A";
 const URL = "https://striveschool-api.herokuapp.com/api/product";
 
 class Item
 {
-    constructor(name, description, brand, imageUrl, price, _id, userId, createdAt, updatedAt, __v)
+    constructor(name, description, brand, imageUrl, price)
     {
         this.name = name;
         this.description = description;
@@ -22,34 +22,79 @@ class Item
         this.price =price;
     }
 }
+let SubmitButton = document.querySelector("#SubmitButton")
 
-let obj= new Item ('k', 'v', 'c', 'https://i.ebayimg.com/images/g/-z8AAOSwAtphXY8W/s-l1600.jpg', 60)
+let F = document.querySelectorAll("#PrimoForm .form-group input")
 
-console.log(obj)
+SubmitButton.addEventListener('click', () => {
+    if (F[0].value==="")
+    {
+        alert("Compila tutti i campi")
+    } else if(F[1].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[2].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[3].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[4].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else
+    {
+        let obj= new Item (F[0].value, F[1].value, F[2].value, F[3].value, F[4].value)
+        F[0].value =""
+        F[1].value =""
+        F[2].value =""
+        F[3].value =""
+        F[4].value =""
+        console.log(obj)
 
+        fetch(URL, {
+            method: "POST", // Method della chiamata 
+            body: JSON.stringify(obj), // nel body della richiesta invio il dato al server
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              "Authorization": STRIVE_SCHOOL_API_KEY
+              }
+          });
+    }
+})
+
+// Chiamata di tipo POST
+/* 
 fetch(URL, {
-  // Chiamata di tipo POST
-  method: "POST", // Method della chiamata - Salvataggio di una risorsa
-  //body: JSON.stringify(obj), // nel body della richiesta invio il dato al server
+  method: "POST", // Method della chiamata 
+  body: JSON.stringify(obj), // nel body della richiesta invio il dato al server
   headers: {
     "Content-type": "application/json; charset=UTF-8",
-    "Authorization": "Bearer " + STRIVE_SCHOOL_API_KEY
+    "Authorization": STRIVE_SCHOOL_API_KEY
     }
 });
+*/
 
-document.addEventListener("DOMContentLoaded", () => 
+//Chiamata GET
+fetch(URL, {
+    method: "GET", // Method della chiamata 
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      "Authorization": STRIVE_SCHOOL_API_KEY
+      }
+  }).then(response => response.json()).then(json => createCard(json))
+
+//Chiamata DELETE
+/*
+fetch(URL +"/"+ItemID, {
+method: "DELETE", // Method della chiamata 
+headers: {
+    "Content-type": "application/json; charset=UTF-8",
+    "Authorization": STRIVE_SCHOOL_API_KEY
+    }
+});*/
+
+function createCard (obj)
 {
-    let xhr = new XMLHttpRequest ();
-    xhr.open('GET', URL)
-    xhr.send();
-
-    xhr.onreadystatechange = function ()
-    {
-        if (xhr.readyState ===4 && xhr.status === 200)
-        {
-            let oggetti = JSON.parse(xhr.responseText);
-            console.log(oggetti[0])
-        }
-        
-    }
-});
+    console.log(obj)
+}
