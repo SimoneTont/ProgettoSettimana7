@@ -68,20 +68,9 @@ FormReset.addEventListener('click', () => {
     F[4].value =""
 })
         
-// Chiamata di tipo POST
-/* 
-fetch(URL, {
-  method: "POST", // Method della chiamata 
-  body: JSON.stringify(obj), // nel body della richiesta invio il dato al server
-  headers: {
-    "Content-type": "application/json; charset=UTF-8",
-    "Authorization": STRIVE_SCHOOL_API_KEY
-    }
-});
-*/
 let ShowButton = document.querySelector("#ShowButton")
 let container = document.querySelector('#CardsContainer');
-console.log(container)
+//console.log(container)
 ShowButton.addEventListener('click', () => {
     container.innerHTML=""
     //Chiamata GET
@@ -159,12 +148,11 @@ AOButton.addEventListener('click', () => {
     deletionButtons.forEach(element => {
         element.addEventListener ('click', () => {DeleteItem(element)})
     });
-    
-
-    console.log(deletionButtons)
 
     let editButtons = document.querySelectorAll(".EditButton")
-    console.log(editButtons)
+    editButtons.forEach(element => {
+        element.addEventListener ('click', () => {EditItem(element)})
+    });
 });
 
 //Delete function
@@ -184,3 +172,42 @@ function DeleteItem(currentButton)
     CurrentCard.remove()
 }
 
+//Edit function
+
+function EditItem(currentButton)
+{
+    let obj= new Item (F[0].value, F[1].value, F[2].value, F[3].value, F[4].value)
+    let SubmitEditButton = document.querySelector('#SubmitEdit')
+    SubmitEditButton.classList.remove("d-none")
+    SubmitEditButton.addEventListener ('click', () => {
+        if (F[0].value==="")
+    {
+        alert("Compila tutti i campi")
+    } else if(F[1].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[2].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[3].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else if(F[4].value==="")
+    {
+        alert("Compila tutti i campi")
+    }else
+    {
+        let obj= new Item (F[0].value, F[1].value, F[2].value, F[3].value, F[4].value)
+    }})
+    
+    let CurrentID=currentButton.parentElement.parentElement.querySelector("img").alt
+    //Chiamata PUT
+    fetch(URL +"/"+CurrentID, {
+    method: "PUT", // Method della chiamata 
+    body: JSON.stringify(obj),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": STRIVE_SCHOOL_API_KEY
+        }
+    });
+}
