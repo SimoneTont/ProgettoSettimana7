@@ -30,10 +30,7 @@ SubmitButton.addEventListener('click', () => {
     if (F[0].value==="")
     {
         alert("Compila tutti i campi")
-    } else if(F[1].value==="")
-    {
-        alert("Compila tutti i campi")
-    }else if(F[2].value==="")
+    } else if(F[2].value==="")
     {
         alert("Compila tutti i campi")
     }else if(F[3].value==="")
@@ -183,10 +180,7 @@ function EditItem(currentButton)
         if (F[0].value==="")
     {
         alert("Compila tutti i campi")
-    } else if(F[1].value==="")
-    {
-        alert("Compila tutti i campi")
-    }else if(F[2].value==="")
+    } else if(F[2].value==="")
     {
         alert("Compila tutti i campi")
     }else if(F[3].value==="")
