@@ -25,7 +25,7 @@ class Item
 let SubmitButton = document.querySelector("#SubmitButton")
 
 let F = document.querySelectorAll("#PrimoForm .form-group input")
-
+//Compilazione form
 SubmitButton.addEventListener('click', () => {
     if (F[0].value==="")
     {
@@ -82,7 +82,7 @@ fetch(URL, {
       "Content-type": "application/json; charset=UTF-8",
       "Authorization": STRIVE_SCHOOL_API_KEY
       }
-  }).then(response => response.json()).then(json => createCard(json))
+  }).then(response => response.json()).then(json => json.forEach(element => { CreateCard(element)}))
 
 //Chiamata DELETE
 /*
@@ -94,7 +94,57 @@ headers: {
     }
 });*/
 
-function createCard (obj)
+function CreateCard (Obj)
 {
-    console.log(obj)
+    let container = document.querySelector('#CardsContainer');//Seleziona container
+
+    let CardDiv = document.createElement("div");//Crea CardDiv
+    container.appendChild(CardDiv);//Div append a container
+    CardDiv.classList.add("card", "m-4");
+    CardDiv.style.width= "18rem";//Aggiungi classi e stile a CardDiv
+
+    let imag = document.createElement("img");//Crea imag
+    imag.classList.add("img-fluid");
+    CardDiv.appendChild(imag);//imag dentro CardDiv
+    imag.src=Obj.imageUrl;
+
+    let CardBody = document.createElement("div");//Crea CardBody
+    CardBody.classList.add("card-body");
+    CardDiv.appendChild(CardBody);//CardBody dentro CardDiv
+
+    let itemName = document.createElement("h5");//Crea CardBody
+    itemName.classList.add("card-title");
+    CardBody.appendChild(itemName);
+    itemName.innerText=Obj.name;
+
+    let brandName = document.createElement("p");//Crea CardBody
+    brandName.classList.add("card-text");
+    CardBody.appendChild(brandName);
+    brandName.innerText=Obj.brand;
+
+    let cost = document.createElement("p");
+    cost.classList.add("card-text");
+    CardBody.appendChild(cost);
+    cost.innerText=Obj.price +"€";
+
+    let deletionButton = document.createElement("button");
+    deletionButton.classList.add("btn","btn-danger", "d-none");
+    CardBody.appendChild(deletionButton);
+    deletionButton.innerText="Delete from server"
+
+    let editingButton = document.createElement("button");
+    editingButton.classList.add("btn","btn-success", "d-none");
+    CardBody.appendChild(editingButton);
+    editingButton.innerText="Edit item"
+
+    console.log(Obj)
 }
+
+let AOButton = document.querySelector("#AdvancedOptionsButton")
+
+AOButton.addEventListener('click', () => {
+    let advancedButtons=document.querySelectorAll(".card-body button")
+    advancedButtons.forEach(element => {
+        element.classList.remove("d-none")
+    });
+});
