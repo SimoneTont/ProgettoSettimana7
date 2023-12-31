@@ -49,5 +49,10 @@ function CreateCard (Obj)
     CardBody.appendChild(cost);
     cost.innerText=Obj.price +"€";
 
+    let HomeButton = document.createElement("a");
+    HomeButton.classList.add("btn","btn-danger", "DetailsButton");
+    CardBody.appendChild(HomeButton);
+    HomeButton.innerText="Go back to the homepage"
+    HomeButton.href="HomePage.html"
 }
 CreateCard(storedObj)
