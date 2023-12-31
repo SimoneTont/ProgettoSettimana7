@@ -2,13 +2,7 @@
 /*endpoint principale https://striveschool-api.herokuapp.com/api/product/*/
 console.log(window)
 
-/*fetch("https://striveschool-api.herokuapp.com/api/product/", {
-headers: {
-"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDI3MTk3ODgsImV4cCI6MTcwMzkyOTM4OH0.ZWtYNSOpd0TEkA8gz_dz_mub0Q2kY41puVZ3HYvvx6A"
-}
-})*/
-
-const STRIVE_SCHOOL_API_KEY = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDI3MTk3ODgsImV4cCI6MTcwMzkyOTM4OH0.ZWtYNSOpd0TEkA8gz_dz_mub0Q2kY41puVZ3HYvvx6A";
+const STRIVE_SCHOOL_API_KEY = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDQwMTgzMTYsImV4cCI6MTcwNTIyNzkxNn0.eBvMNetxqHgyKEjawvyqAzRrWg75hRm-okB_y0jCFoI";
 const URL = "https://striveschool-api.herokuapp.com/api/product";
 
 class Item
@@ -25,6 +19,7 @@ class Item
 let SubmitButton = document.querySelector("#SubmitButton")
 
 let F = document.querySelectorAll("#PrimoForm .form-group input")
+
 //Compilazione form
 SubmitButton.addEventListener('click', () => {
     if (F[0].value==="")
@@ -87,10 +82,11 @@ function CreateCard (Obj)
     let CardDiv = document.createElement("div");//Crea CardDiv
     container.appendChild(CardDiv);//Div append a container
     CardDiv.classList.add("card", "m-4");
-    CardDiv.style.width= "18rem";//Aggiungi classi e stile a CardDiv
+    CardDiv.style.width= "18rem";
+    //Aggiungi classi e stile a CardDiv
 
     let imag = document.createElement("img");//Crea imag
-    imag.classList.add("img-fluid");
+    imag.classList.add("img-fluid", "card-img-top");
     CardDiv.appendChild(imag);//imag dentro CardDiv
     imag.src=Obj.imageUrl;
     imag.alt=Obj._id;
@@ -129,7 +125,7 @@ function CreateCard (Obj)
     CardBody.appendChild(editingButton);
     editingButton.innerText="Edit item"
 
-    console.log(Obj)
+    //console.log(Obj)
 }
 
 //Advanced Options Button
@@ -155,7 +151,10 @@ AOButton.addEventListener('click', () => {
 //Delete function
 function DeleteItem(currentButton)
 {
-    //Chiamata DELETE
+    let confirmation = confirm("Are you sure you want to proceed?");
+    if(confirmation===true)
+    {
+        //Chiamata DELETE
     let CurrentCard=currentButton.parentElement.parentElement
     let CurrentID=CurrentCard.querySelector("img").alt
     //console.log(CurrentID)
@@ -167,13 +166,17 @@ function DeleteItem(currentButton)
         }
     });
     CurrentCard.remove()
+    }
 }
 
 //Edit function
 
 function EditItem(currentButton)
 {
-    let obj= new Item (F[0].value, F[1].value, F[2].value, F[3].value, F[4].value)
+    let confirmation = confirm("Are you sure you want to proceed?");
+    if(confirmation===true)
+    {
+        let obj= new Item (F[0].value, F[1].value, F[2].value, F[3].value, F[4].value)
     let SubmitEditButton = document.querySelector('#SubmitEdit')
     SubmitEditButton.classList.remove("d-none")
     SubmitEditButton.addEventListener ('click', () => {
@@ -204,4 +207,5 @@ function EditItem(currentButton)
         "Authorization": STRIVE_SCHOOL_API_KEY
         }
     });
+    }
 }
