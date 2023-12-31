@@ -1,5 +1,4 @@
 
-/*endpoint principale https://striveschool-api.herokuapp.com/api/product/*/
 console.log(window)
 
 const STRIVE_SCHOOL_API_KEY = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YmJhYTdjMGRkOTAwMThjOTM5MmUiLCJpYXQiOjE3MDQwMTgzMTYsImV4cCI6MTcwNTIyNzkxNn0.eBvMNetxqHgyKEjawvyqAzRrWg75hRm-okB_y0jCFoI";
@@ -124,8 +123,6 @@ function CreateCard (Obj)
     editingButton.classList.add("btn","btn-success", "d-none", "EditButton");
     CardBody.appendChild(editingButton);
     editingButton.innerText="Edit item"
-
-    //console.log(Obj)
 }
 
 //Advanced Options Button
@@ -157,7 +154,6 @@ function DeleteItem(currentButton)
         //Chiamata DELETE
     let CurrentCard=currentButton.parentElement.parentElement
     let CurrentID=CurrentCard.querySelector("img").alt
-    //console.log(CurrentID)
     fetch(URL +"/"+CurrentID, {
     method: "DELETE", // Method della chiamata 
     headers: {
